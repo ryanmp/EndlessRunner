@@ -11,6 +11,8 @@ public class Player : MonoBehaviour
 
 	public GameObject Camera;
 
+	public GameObject jump_trigger;
+
 	// Use this for initialization
 	void Start ()
 	{
@@ -41,15 +43,24 @@ public class Player : MonoBehaviour
 
 	public void Jump ()
 	{
+		//Debug.Log (jump_trigger.GetComponent<JumpTrigger> ().can_jump);
+
+
 		//float height = gameObject.transform.position.y - (gameObject.transform.localScale.y / 2f) - floor.position.y;
 		//if (height < 0.2f) {
+
+		//if (jump_trigger.GetComponent<JumpTrigger> ().can_jump) {
 		Vector2 v = gameObject.GetComponent<Rigidbody2D> ().velocity;
-		gameObject.GetComponent<Rigidbody2D> ().velocity = new Vector2 (v.x, 5f);
+		gameObject.GetComponent<Rigidbody2D> ().velocity = new Vector2 (v.x, 4.5f);
 		//}
+
 	}
 
 
 
+
+
+	/*
 	public void OnCollisionEnter2D (Collision2D c)
 	{
 		Camera.GetComponent<Camera> ().UpdatePosition (transform.position);
@@ -64,6 +75,6 @@ public class Player : MonoBehaviour
 	public void OnCollisionExit2D (Collision2D c)
 	{
 		Camera.GetComponent<Camera> ().UpdatePosition (transform.position);
-	}
+	} */
 
 }

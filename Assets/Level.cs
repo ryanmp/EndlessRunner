@@ -25,41 +25,48 @@ public class Level : MonoBehaviour
 	private float space_between_platforms = 1f;
 	public GameObject platform;
 	
-	private int min_platform_length = 10;
-	private int max_platform_length = 40;
+	private float min_platform_length = 6f;
+	private float max_platform_length = 15f;
 
-	private float init_x_offset = -5;
+	private float init_x_offset = -5f;
 
+	private float length = 20f;
+	private float slope = -0.1f;
 
 	void Start ()
 	{
-		QualitySettings.antiAliasing = 2;
+		QualitySettings.antiAliasing = 8;
 		Application.targetFrameRate = 120;
 
 
 
-		int num_platforms = 20;
+		int num_platforms = 50;
 		for (int i = 0; i < num_platforms; i++) {
 
-			space_between_platforms = Random.Range (1f, 5f);
-
+			space_between_platforms = Random.Range (0.1f, 2f);
 
 			current_x += prev_length + space_between_platforms;
-			//current_y += Random.Range (0.1f, 1f);
-
 			current_y += 0;
 
 			Vector3 v = new Vector3 (current_x + init_x_offset, current_y, 0f);
 
-
-
 			GameObject go = Instantiate (platform, v, Quaternion.identity) as GameObject;
 			go.name = i.ToString ();
 			go.transform.parent = gameObject.transform;
-			int length = Random.Range (min_platform_length, max_platform_length);
-			Debug.Log (length);
+
+			// first platform, fixed style
+			if (i == 0) {
+				// uses values at the top of file
+			} else {
+				length = Random.Range (min_platform_length, max_platform_length);
+				slope = Random.Range (-0.2f, 0.0f);
+			}
+
 			prev_length = length;
-			go.SendMessage ("Init", length);
+
+			float[] to_send = {length,slope};
+			go.SendMessage ("Init", to_send);
+
 		}
 
 	}

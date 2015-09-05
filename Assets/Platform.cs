@@ -7,7 +7,7 @@ public class Platform : MonoBehaviour
 
 	public Color[] colors;
 	
-	private float LINE_WIDTH = 0.2f;
+	private float LINE_WIDTH = 0.1f;
 	
 	private List<Vector2> platform = new List<Vector2> (); 
 
@@ -17,18 +17,39 @@ public class Platform : MonoBehaviour
 	private float max_incline = 1f;
 
 	private float length = 2f;
+	private float slope = 1f;
 
 	public Material line_mat;
 
-	void Init (int l)
+	public GameObject quad;
+
+
+	public float phase_mod_speed = 0f;
+
+	private float freq = 1f;
+	private float amplitude = 1f;
+
+
+	void Init (float[] _in)
 	{
-		length = l;
+		length = _in [0];
+		slope = _in [1];
 	}
 	
 	void Start ()
 	{
+		freq = Random.Range (0f, 4f);
+		amplitude = Random.Range (0f, 1f);
+		phase_mod_speed = Random.Range (0f, 1f);
 
-		int verts = (int)length;
+
+		//GameObject platform = Instantiate (quad, transform.position, transform.rotation) as GameObject;
+		//platform.transform.eulerAngles = new Vector3 (0f, 0f, -5f);
+		//platform.transform.localScale = new Vector3 (length, 1f, 1f);
+		//platform.transform.parent = transform;
+
+
+		//int verts = (int)length;
 
 		/*
 		float current_height = -3f;
@@ -47,11 +68,31 @@ public class Platform : MonoBehaviour
 		}
 		*/
 
-		Vector2 v1 = new Vector2 (0f, -1f);
+		//int points = Random.Range (2, 20);
+
+		int points = 30;
+
+		for (int i = 0; i <= points; i++) {
+			/*
+			float x = Mathf.Lerp (0, length, i * 1f / points * 1f);
+			float y = slope * x + Mathf.Sin (
+				Mathf.Lerp (0f, Mathf.PI, i * 1f / points * 1f) - Mathf.PI + Time.time
+			);*/
+			float x = 0f;
+			float y = 0f;
+
+			Vector2 v = new Vector2 (x, y);
+			platform.Add (v);
+
+		}
+
+		/*
+		Vector2 v1 = new Vector2 (0f, 0f);
 		platform.Add (v1);
 
-		Vector2 v2 = new Vector2 (length, -2f);
+		Vector2 v2 = new Vector2 (length, -decline);
 		platform.Add (v2);
+		*/
 
 
 		LineRenderer lr = gameObject.AddComponent<LineRenderer> ();
@@ -72,6 +113,7 @@ public class Platform : MonoBehaviour
 			lr.SetPosition (i, new Vector3 (v.x, v.y - LINE_WIDTH / 2f, 0f));
 		} 
 
+
 		EdgeCollider2D edgeCollider = gameObject.AddComponent<EdgeCollider2D> ();
 		edgeCollider.points = platform.ToArray ();
 
@@ -80,10 +122,23 @@ public class Platform : MonoBehaviour
 	void Update ()
 	{
 
-		/*
+
 		// update positions
 		for (int i = 0; i < platform.Count; i++) {
-			platform [i] = new Vector2 (platform [i].x - Time.deltaTime * 5f, platform [i].y);
+
+			float idx = i * 1f / platform.Count * 1f; // from 0 to 1
+
+			float x = Mathf.Lerp (0, length, idx); // fixed x points
+
+			float y = slope * x +
+				amplitude * Mathf.Sin (
+					freq * (idx - Time.time * phase_mod_speed)
+			);
+
+			
+			platform [i] = new Vector2 (x, y);
+
+
 		}
 
 		// use updated positions
@@ -95,7 +150,7 @@ public class Platform : MonoBehaviour
 		
 		EdgeCollider2D edgeCollider = gameObject.GetComponent<EdgeCollider2D> ();
 		edgeCollider.points = platform.ToArray ();
-		*/
+
 
 	}
 }

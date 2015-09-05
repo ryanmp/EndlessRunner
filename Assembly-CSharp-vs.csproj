@@ -47,6 +47,7 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\Camera.cs" />
+     <Compile Include="Assets\JumpTrigger.cs" />
      <Compile Include="Assets\Level.cs" />
      <Compile Include="Assets\Platform.cs" />
      <Compile Include="Assets\Player.cs" />
