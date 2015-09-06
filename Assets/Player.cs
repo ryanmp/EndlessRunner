@@ -25,18 +25,18 @@ public class Player : MonoBehaviour
 	void Update ()
 	{
 	
+		// color based on speed
 		float raw_vx = gameObject.GetComponent<Rigidbody2D> ().velocity.x;
-
-		float scale_factor = 1f / 8f;
-
+		float scale_factor = 1f / 5f;
 		float vx = Mathf.Clamp ((raw_vx * scale_factor), 0f, 1f);
-
-
-
-
-
-
 		gameObject.GetComponent<SpriteRenderer> ().color = Color.Lerp (slow_color, fast_color, vx);
+
+		// restart if dead
+		if (transform.position.y <= -20f) {
+			Application.LoadLevel (0);
+		}
+
+
 
 	}
 

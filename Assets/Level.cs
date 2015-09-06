@@ -7,14 +7,13 @@ public class Level : MonoBehaviour
 
 
 	/// TODO
-	/// find the bug which is showing up in xcode but not unity
-	// remove large files from git history
-	// set position of next platform based on max jump height on difference in height between two platforms
-	// have platforms gradually go up?
-	// have background fade ( in height) from sunset to black and then have stars and shooting stars show up
-	// gradually decrease gravity as player goes up
 
-	// game name idea 'fallen star'
+	// start with an initial medium rotational velocity
+	// explore other ideas such as: one long sine wave on the bottom of the screen for the ground...
+	// and then have obstacles to jump over which can kill the player, rather than platforms
+	// include speed up and slow down pads, which you might need to make certain jumps
+
+
 
 
 
@@ -25,14 +24,17 @@ public class Level : MonoBehaviour
 	private float space_between_platforms = 1f;
 	public GameObject platform;
 	
-	private float min_platform_length = 6f;
-	private float max_platform_length = 15f;
+	private float min_platform_l = 6f;
+	private float max_platform_l = 15f;
 
 	private float init_x_offset = -5f;
 
 	private float length = 20f;
 	private float slope = -0.1f;
 
+	private float current_max_amplitude = 0.0f;
+
+	
 	void Start ()
 	{
 		QualitySettings.antiAliasing = 8;
@@ -43,7 +45,9 @@ public class Level : MonoBehaviour
 		int num_platforms = 50;
 		for (int i = 0; i < num_platforms; i++) {
 
-			space_between_platforms = Random.Range (0.1f, 2f);
+			float idx = i * 1.0f / num_platforms * 1.0f;
+
+			space_between_platforms = Random.Range (0.1f, 0.5f);
 
 			current_x += prev_length + space_between_platforms;
 			current_y += 0;
@@ -58,14 +62,22 @@ public class Level : MonoBehaviour
 			if (i == 0) {
 				// uses values at the top of file
 			} else {
-				length = Random.Range (min_platform_length, max_platform_length);
+				current_max_amplitude = idx;
+				length = Random.Range (min_platform_l, max_platform_l);
 				slope = Random.Range (-0.2f, 0.0f);
 			}
 
 			prev_length = length;
 
-			float[] to_send = {length,slope};
+			float[] to_send = {length,slope,current_max_amplitude};
 			go.SendMessage ("Init", to_send);
+
+			float new_max_platform_l = max_platform_l - Random.Range (-0.1f, 0.5f);
+			max_platform_l = Mathf.Clamp (new_max_platform_l, min_platform_l, max_platform_l);
+
+			float new_min_platform_l = min_platform_l - Random.Range (-0.1f, 0.5f);
+			min_platform_l = Mathf.Clamp (new_min_platform_l, 2f, max_platform_l);
+
 
 		}
 

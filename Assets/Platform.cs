@@ -22,24 +22,26 @@ public class Platform : MonoBehaviour
 	public Material line_mat;
 
 	public GameObject quad;
-
-
+	
 	public float phase_mod_speed = 0f;
 
 	private float freq = 1f;
 	private float amplitude = 1f;
+
+	private float max_amplitude = 1f;
 
 
 	void Init (float[] _in)
 	{
 		length = _in [0];
 		slope = _in [1];
+		max_amplitude = _in [2];
 	}
 	
 	void Start ()
 	{
 		freq = Random.Range (0f, 4f);
-		amplitude = Random.Range (0f, 1f);
+		amplitude = Random.Range (0f, max_amplitude);
 		phase_mod_speed = Random.Range (0f, 1f);
 
 

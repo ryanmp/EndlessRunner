@@ -14,7 +14,7 @@ public class Camera : MonoBehaviour
 	public Transform background;
 
 	private Vector2 player_offset = new Vector2 (7f, 0f);
-
+	private float cam_distance = -50f;
 
 	// Use this for initialization
 	void Start ()
@@ -31,8 +31,14 @@ public class Camera : MonoBehaviour
 		background.transform.position = new Vector3 (bg_pos.x, (22f - transform.position.x * 0.1f), bg_pos.z);
 
 
+		if (Input.deviceOrientation == DeviceOrientation.LandscapeLeft) {
+			cam_distance = -50f;
+		} else if (Input.deviceOrientation == DeviceOrientation.Portrait) {
+			cam_distance = -60f;
+		}
+		
 		// camera x = wheel x
-		transform.position = new Vector3 (wheel.position.x + player_offset.x, transform.position.y + player_offset.y, transform.position.z);
+		transform.position = new Vector3 (wheel.position.x + player_offset.x, transform.position.y + player_offset.y, cam_distance);
 	
 		// camera y lerping?
 		//float t = (Time.time - start_time) * (1 / lerp_duration);
