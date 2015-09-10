@@ -13,12 +13,13 @@ public class Player : MonoBehaviour
 
 	public GameObject jump_trigger;
 
-	private float jump_vel = 5f;
+	private float jump_vel = 8f;
 
 	// Use this for initialization
 	void Start ()
 	{
-	
+		Rigidbody2D rb = gameObject.GetComponent<Rigidbody2D> ();
+		rb.AddTorque (-5500f);
 
 
 	}

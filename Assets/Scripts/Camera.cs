@@ -26,7 +26,7 @@ public class Camera : MonoBehaviour
 	void Update ()
 	{
 
-
+		/*
 		Vector3 bg_pos = background.transform.position;
 		background.transform.position = new Vector3 (bg_pos.x, (22f - transform.position.x * 0.1f), bg_pos.z);
 
@@ -39,11 +39,17 @@ public class Camera : MonoBehaviour
 		
 		// camera x = wheel x
 		transform.position = new Vector3 (wheel.position.x + player_offset.x, transform.position.y + player_offset.y, cam_distance);
-	
+		*/
 		// camera y lerping?
 		//float t = (Time.time - start_time) * (1 / lerp_duration);
 		//transform.position = Vector3.Lerp (transform.position, new_position, t);
 
+	}
+
+
+	void FixedUpdate ()
+	{
+		transform.position = new Vector3 (wheel.position.x + player_offset.x, transform.position.y + player_offset.y, cam_distance);
 
 	}
 
