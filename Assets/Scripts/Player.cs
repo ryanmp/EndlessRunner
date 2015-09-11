@@ -8,11 +8,8 @@ public class Player : MonoBehaviour
 
 	public Color slow_color;
 	public Color fast_color;
-
 	public GameObject Camera;
-
 	public GameObject jump_trigger;
-
 	private float jump_vel = 8f;
 
 	// Use this for initialization
@@ -32,7 +29,7 @@ public class Player : MonoBehaviour
 		float raw_vx = gameObject.GetComponent<Rigidbody2D> ().velocity.x;
 		float scale_factor = 1f / 5f;
 		float vx = Mathf.Clamp ((raw_vx * scale_factor), 0f, 1f);
-		gameObject.GetComponent<SpriteRenderer> ().color = Color.Lerp (slow_color, fast_color, vx);
+		//gameObject.GetComponent<SpriteRenderer> ().color = Color.Lerp (slow_color, fast_color, vx);
 
 		// restart if dead
 		if (transform.position.y <= -20f) {

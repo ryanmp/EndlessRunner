@@ -1,9 +1,12 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace />
-  <MonoDevelop.Ide.Workbench ActiveDocument="../PJumper/Assets/Scripts/planet.cs">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/Level.cs">
     <Files>
-      <File FileName="../PJumper/Assets/Scripts/player.cs" Line="51" Column="50" />
-      <File FileName="../PJumper/Assets/Scripts/planet.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/Platform2.cs" Line="116" Column="1" />
+      <File FileName="Assets/Scripts/Level.cs" Line="33" Column="1" />
+      <File FileName="Assets/Scripts/Camera.cs" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/Player.cs" Line="1" Column="1" />
+      <File FileName="Assets/time.cs" Line="19" Column="48" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

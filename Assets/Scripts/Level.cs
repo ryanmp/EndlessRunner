@@ -42,74 +42,34 @@ public class Level : MonoBehaviour
 		QualitySettings.antiAliasing = 4;
 		Application.targetFrameRate = 120;
 
-		//OldGenPlats ();
 
+		OldGenPlats ();
 
-
-
-
-		//// new type of gen
-		GameObject floor2 = Instantiate (platform2, Vector3.zero, Quaternion.identity) as GameObject;
-		Dictionary<string, object> to_send2 = new Dictionary<string, object> () {
-			{ "start_pos", new Vector2(-20f,-5f)},
-			{ "end_pos", new Vector2(201f,-8f)},
-			{ "min_amp", 0f },
-			{ "max_amp", 0.5f },
-			{ "min_freq", 20f },
-			{ "max_freq", 20f },
-			{ "phase_mod_speed", 1f },
-			{ "amp_mod_speed", 10f},
-			{ "freq_mod_speed", 0f },
-			{ "c1", new Color(1f,1f,0f) },
-			{ "c2", new Color(1f,0f,1f) }
-		};
-		floor2.SendMessage ("Init", to_send2);
-
-		//// new type of gen
-		GameObject floor3 = Instantiate (platform2, Vector3.zero, Quaternion.identity) as GameObject;
-		Dictionary<string, object> to_send3 = new Dictionary<string, object> () {
-			{ "start_pos", new Vector2(-20f,-5f)},
-			{ "end_pos", new Vector2(201f,-8f)},
-			{ "min_amp", 0f },
-			{ "max_amp", 1f },
-			{ "min_freq", 20f },
-			{ "max_freq", 20f },
-			{ "phase_mod_speed", 1f },
-			{ "amp_mod_speed", 10f},
-			{ "freq_mod_speed", 0f },
-			{ "c1", new Color(1f,1f,0f) },
-			{ "c2", new Color(1f,0f,1f) }
-		};
-		floor3.SendMessage ("Init", to_send3);
-
-		//// new type of gen
-		GameObject floor4 = Instantiate (platform2, Vector3.zero, Quaternion.identity) as GameObject;
-		Dictionary<string, object> to_send4 = new Dictionary<string, object> () {
-			{ "start_pos", new Vector2(-20f,-5f)},
-			{ "end_pos", new Vector2(201f,-8f)},
-			{ "min_amp", 0f },
-			{ "max_amp", 1.5f },
-			{ "min_freq", 20f },
-			{ "max_freq", 20f },
-			{ "phase_mod_speed", 1f },
-			{ "amp_mod_speed", 10f},
-			{ "freq_mod_speed", 0f },
-			{ "c1", new Color(1f,1f,0f) },
-			{ "c2", new Color(1f,0f,1f) }
-		};
-		floor4.SendMessage ("Init", to_send4);
-
-
-
-
-
+		//GenPlatformType1 (new Vector2 (-20f, -5f), new Vector2 (201f, -8f), 4);
 
 	}
 
-	void Update ()
+	void GenPlatformType1 (Vector2 start_pos, Vector2 end_pos, int iterations)
 	{
-
+		for (int i = 0; i < iterations; i++) {
+			GameObject temp_platform = Instantiate (platform2, Vector3.zero, Quaternion.identity) as GameObject;
+			Dictionary<string, object> to_send = new Dictionary<string, object> () {
+				{ "start_pos", start_pos},
+				{ "end_pos", end_pos},
+				{ "min_amp", 0f },
+				{ "max_amp", 0.5f * i },
+				{ "min_freq", 20f },
+				{ "max_freq", 20f },
+				{ "phase_mod_speed", 1f },
+				{ "amp_mod_speed", 10f},
+				{ "freq_mod_speed", 0f },
+				{ "c1", new Color(1f,1f,0f) },
+				{ "c2", new Color(1f,0f,1f) }
+			};
+			temp_platform.SendMessage ("Init", to_send);
+		}
 	}
+
 
 
 
